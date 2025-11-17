@@ -29,6 +29,7 @@ export type SiteConfig = {
 	// 特色页面开关配置
 	featurePages: {
 		anime: boolean; // 番剧页面开关
+		game: boolean;
 		diary: boolean; // 日记页面开关
 		friends: boolean; // 友链页面开关
 		projects: boolean; // 项目页面开关
@@ -73,6 +74,10 @@ export type SiteConfig = {
 
 	// 添加番剧页面配置
 	anime?: {
+		mode?: "bangumi" | "local"; // 番剧页面模式
+	};
+
+	game?: {
 		mode?: "bangumi" | "local"; // 番剧页面模式
 	};
 
@@ -155,6 +160,7 @@ export enum LinkPreset {
 	Projects = 7,
 	Skills = 8,
 	Timeline = 9,
+	game = 10,
 }
 
 export type NavBarLink = {

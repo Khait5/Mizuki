@@ -43,4 +43,4 @@ src/data/myself.ts
 src/pages/myself.astro
 
 #configuration
-src/config.ts
+#src/config.ts
