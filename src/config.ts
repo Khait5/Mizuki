@@ -62,9 +62,6 @@ export const siteConfig: SiteConfig = {
 	anime: {
 		mode: "local", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
 	},
-	game: {
-		mode: "local", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
-	},
 
 	// 文章列表布局配置
 	postListLayout: {
@@ -261,7 +258,6 @@ export const navBarConfig: NavBarConfig = {
 			icon: "material-symbols:person",
 			children: [
 				LinkPreset.Anime,
-				LinkPreset.game,
 				LinkPreset.Diary,
 				{
 					name: "Gallery",
