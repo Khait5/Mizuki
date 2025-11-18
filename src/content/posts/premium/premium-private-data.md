@@ -1,5 +1,5 @@
 ---
-title: "Access Granted: Premium User Private Data & Server Links"
+title: "[PASSWORD] Premium User Private Data & Server Links"
 published: 2025-11-01
 description: Exclusive, sensitive information for our premium subscribers. Do not share this password.
 encrypted: true
@@ -28,9 +28,3 @@ You have been granted temporary access to our shared, high-end game accounts for
 | BDO NA Server | Blackstar_Elite  | Pw$$word!| PEN Blackstar Gear (Sorc) |
 | Once Human EU | Final_Frontier   | Pw$$word!| Full Plasma Tier (S4) |
 
-## 🖼️ Uncensored Fanart Access
-
-Access the private vault of community-submitted fanart of BDO and Once Human characters. This content is uncensored and is not visible on the public site.
-
-* **Vault Link:** `https://private-media-vault.com/u/premium_nsfw_vault`
-* **Vault Key:** `P4Y-T0-W1N-42`

@@ -1,7 +1,7 @@
 ---
 title: "BDO 2025 Gear Progression Guide: From Narchillan to Godr-Ayed"
 published: 2025-11-12
-pinned: true
+pinned: false
 description: The essential steps for upgrading your gear in Black Desert Online in 2025, from beginner sets to endgame weapons.
 tags: [BDO, Guide, Gear, Progression, Enhancement]
 category: "black desert online"
