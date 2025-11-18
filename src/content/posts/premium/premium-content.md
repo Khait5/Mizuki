@@ -22,7 +22,7 @@ The Mizuki theme automatically loads all private albums into a dedicated section
 
 | Album Name | Content Focus | Direct Link | Layout |
 |---|---|---|---|
-| **Black Desert: Sexy Showcase** | Exclusive renders of Dark Knight outfits and poses. | [View Album Now](/albums/dkVault/) | Masonry |
+| **Black Desert: Sexy Showcase** | Exclusive renders of Dark Knight outfits and poses. | [View Album Now](/albums/bdoVault/) | Masonry |
 | **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | [View Album Now](/albums/ohVault/) | Grid |
 ---
 
