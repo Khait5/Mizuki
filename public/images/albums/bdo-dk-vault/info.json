@@ -6,5 +6,5 @@
   "tags": ["BDO", "NSFW", "DarkKnight"],
   "layout": "masonry",
   "columns": 3,
-  "hidden": false
+  "hidden": true
 }
