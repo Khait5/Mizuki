@@ -22,11 +22,8 @@ The Mizuki theme automatically loads all private albums into a dedicated section
 
 | Album Name | Content Focus | Direct Link | Layout |
 |---|---|---|---|
-| **Black Desert: Dark Knight Renders** | Exclusive renders of Dark Knight outfits and poses. | [View Album Now](/albums/bdo-dk-vault/) | Masonry |
+| **Black Desert: Sexy Showcase** | Exclusive renders of Dark Knight outfits and poses. | [View Album Now](/albums/bdo-dk-vault/) | Masonry |
 | **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | [View Album Now](/albums/oh-doll-custom/) | Grid |
-| **BDO: Sorceress (Succ) Collection** | High-resolution art focusing on the Sorceress Succession class. | [View Album Now](/albums/bdo-sorc-succ/) | Masonry |
-| **Cross-Game: Mixed Fan Art** | Various characters from both games in shared scenes. | [View Album Now](/albums/mixed-fanart-vol1/) | Grid |
-
 ---
 
 :::tip[REMINDER: Configuration Required]
@@ -34,11 +31,6 @@ These links will only work **after** you have created the following directories 
 
 $$\text{public/images/albums/}\mathbf{\text{bdo-dk-vault/}}$$
 $$\text{public/images/albums/}\mathbf{\text{oh-doll-custom/}}$$
-$$\text{etc...}$$
 :::
 
 ---
-
-De esta forma, el usuario podrá ver los enlaces directos una vez que introduzca la contraseña en el post encriptado.
-
-¿Hay algo más que te gustaría crear o ajustar en tus posts?
