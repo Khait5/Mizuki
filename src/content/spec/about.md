@@ -36,21 +36,19 @@ Here is a look at my current trophy completion across the main titles and Revela
 | Game Title | Platform | Trophy Completion (%) |
 | :--- | :--- | :---: |
 | Resident Evil (Remake) | PS/PC | 93% |
-| Resident Evil 0 | PS/PC | 96% |
-| Resident Evil 2 (Remake) | PS/PC | 91% |
+| Resident Evil 0 | PS/PC | 100% |
+| Resident Evil 2 (Remake) | PS/PC | 100% |
 | Resident Evil 3 (Remake) | PS/PC | 98% |
-| Resident Evil 4 (Original) | PS/PC | 94% |
-| Resident Evil 4 (Remake) | PS/PC | 97% |
-| Resident Evil 5 | PS/PC | 99% |
+| Resident Evil 4 (Original) | PS/PC | 100% |
+| Resident Evil 4 (Remake) | PS/PC | 100% |
+| Resident Evil 5 | PS/PC | 100% |
 | Resident Evil 6 | PS/PC | 90% |
 | Resident Evil 7: Biohazard | PS/PC | 95% |
 | Resident Evil Village | PS/PC | 92% |
-| Resident Evil: Revelations | PS/PC | 96% |
-| Resident Evil: Revelations 2 | PS/PC | 93% |
+| Resident Evil: Revelations | PS/PC | 85% |
+| Resident Evil: Revelations 2 | PS/PC | 100% |
 
 ---
 
 > [!TIP]
-> **Favorite RE Villain:** Lady Dimitrescu. Who can resist a challenging fight with a bit of gothic flair?
-
-Feel free to connect if you're looking for a raid partner, a fellow BDO grinder, or just want to discuss the best Resident Evil title!
+> **Favorite RE Remake 4:** I love playing as Ada Wong. Sorry, I just love her style.
