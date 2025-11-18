@@ -6,5 +6,5 @@
   "tags": ["OnceHuman", "NSFW", "Doll"],
   "layout": "grid",
   "columns": 4,
-  "hidden": true
+  "hidden": false
 }
