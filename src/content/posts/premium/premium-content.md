@@ -1,5 +1,5 @@
 ---
-title: "Access Granted: Exclusive Gallery Vault (Uncensored)"
+title: "[PASSWORD] Exclusive Gallery Vault (Uncensored)"
 published: 2025-11-25
 description: Private access to high-resolution, uncensored fan art and renders of BDO and Once Human characters. Access granted for Premium Tier 3 users only.
 encrypted: true
@@ -14,7 +14,7 @@ draft: false
 
 Welcome, Premium User.
 
-The Mizuki theme automatically loads all private albums into a dedicated section. **You can view your exclusive galleries using the direct links below or by navigating to the main 'Albums' page.**
+**You can view your exclusive galleries using the direct links below or by navigating to the main 'Albums' page.**
 
 ---
 
