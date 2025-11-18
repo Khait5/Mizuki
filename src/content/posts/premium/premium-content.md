@@ -1,5 +1,5 @@
 ---
-title: "[PASSWORD] Exclusive Gallery Vault (Uncensored)"
+title: "[PASSWORD] Exclusive Gallery Vault"
 published: 2025-11-25
 description: Private access to high-resolution, uncensored fan art and renders of BDO and Once Human characters. Access granted for Premium Tier 3 users only.
 encrypted: true
