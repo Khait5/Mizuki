@@ -3,9 +3,8 @@
   "description": "Exclusive, high-resolution Dark Knight renders for Premium Users.",
   "date": "2025-11-25",
   "location": "Custom Renders",
-  "tags": ["BDO", "NSFW", "DarkKnight"],
+  "tags": ["BDO", "NSFW", "DarkKnight", "private-gallery"],
   "layout": "masonry",
   "columns": 3,
-  "hidden": false,
-  "premium": true
+  "hidden": false
 }
