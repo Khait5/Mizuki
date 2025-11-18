@@ -10,51 +10,29 @@ category: "premium users"
 draft: false
 ---
 
-# 🔞 PREMIUM GALLERY VAULT
+# 🔞 PREMIUM GALLERY VAULT ACCESS
 
-Welcome, Premium User. Below is the list of exclusive, uncensored media albums. These files are not hosted on the public site and require manual configuration for viewing.
+Welcome, Premium User. The exclusive galleries are now active and automatically loaded into the 'Albums' section of the site.
 
----
-
-## 🖼️ Available Albums List
-
-| Album Name | Content Focus | Access Folder | Number of Images |
-|---|---|---|---|
-| **Black Desert: Dark Knight Renders** | Exclusive renders of Dark Knight outfits and poses. | `bdo-dk-vault` | 42 |
-| **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | `oh-doll-custom` | 35 |
-| **BDO: Sorceress (Succ) Collection** | High-resolution art focusing on the Sorceress Succession class. | `bdo-sorc-succ` | 28 |
-| **Cross-Game: Mixed Fan Art** | Various characters from both games in shared scenes. | `mixed-fanart-vol1` | 50 |
+The Mizuki theme uses an **Automatic Scanning** system for albums. You can view the galleries by navigating to the **Albums** page on the main navigation bar.
 
 ---
 
-## 💾 Upload Location and Configuration
+## 🖼️ Available Albums List (Local Images)
 
-To make these albums accessible on your Astro site, you typically need to place the images in a specific directory structure and ensure your theme's gallery component can read them.
+These albums are configured for the highest quality and best loading speed using the local image mode.
 
-### 1. Image Upload Location
+| Album Name | Content Focus | Album ID (Folder Name) | Layout | Columns |
+|---|---|---|---|---|
+| **Black Desert: Dark Knight Renders** | Exclusive renders of Dark Knight outfits and poses. | `bdo-dk-vault` | `masonry` | 3 |
+| **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | `oh-doll-custom` | `grid` | 4 |
+| **BDO: Sorceress (Succ) Collection** | High-resolution art focusing on the Sorceress Succession class. | `bdo-sorc-succ` | `masonry` | 2 |
+| **Cross-Game: Mixed Fan Art** | Various characters from both games in shared scenes. | `mixed-fanart-vol1` | `grid` | 3 |
 
-**You should create the album folders inside your static assets directory.**
-
-Assuming your Astro project follows the standard structure:
-
-* **Path:** `public/assets/galleries/`
-
-**Action:** Place the image files for each album in the corresponding folder:
-
-* `public/assets/galleries/bdo-dk-vault/`
-* `public/assets/galleries/oh-doll-custom/`
-* `public/assets/galleries/bdo-sorc-succ/`
-* `public/assets/galleries/mixed-fanart-vol1/`
-
-### 2. Gallery Component Usage
-
-Your theme likely has a custom component for displaying these albums (e.g., `<Gallery />` or `<AlbumList />`). You would typically use this component in your Markdown or an Astro layout page, feeding it the folder path.
-
-**Example (Inside an Astro page or component):**
-
-```astro
 ---
-import Gallery from '~/components/Gallery.astro';
----
-<h1>Black Desert: Dark Knight Renders</h1>
-<Gallery albumFolder="bdo-dk-vault" />
+
+:::important[ACTION REQUIRED]
+To enable these galleries, you **must** create the following folder structure and configuration files in your project:
+
+`public/images/albums/`
+:::
