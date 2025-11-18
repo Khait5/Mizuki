@@ -1,5 +1,5 @@
 ---
-title: "Exclusive Gallery Vault: Uncensored BDO & Once Human Albums"
+title: "Access Granted: Exclusive Gallery Vault (Uncensored)"
 published: 2025-11-25
 description: Private access to high-resolution, uncensored fan art and renders of BDO and Once Human characters. Access granted for Premium Tier 3 users only.
 encrypted: true
@@ -12,27 +12,33 @@ draft: false
 
 # 🔞 PREMIUM GALLERY VAULT ACCESS
 
-Welcome, Premium User. The exclusive galleries are now active and automatically loaded into the 'Albums' section of the site.
+Welcome, Premium User.
 
-The Mizuki theme uses an **Automatic Scanning** system for albums. You can view the galleries by navigating to the **Albums** page on the main navigation bar.
-
----
-
-## 🖼️ Available Albums List (Local Images)
-
-These albums are configured for the highest quality and best loading speed using the local image mode.
-
-| Album Name | Content Focus | Album ID (Folder Name) | Layout | Columns |
-|---|---|---|---|---|
-| **Black Desert: Dark Knight Renders** | Exclusive renders of Dark Knight outfits and poses. | `bdo-dk-vault` | `masonry` | 3 |
-| **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | `oh-doll-custom` | `grid` | 4 |
-| **BDO: Sorceress (Succ) Collection** | High-resolution art focusing on the Sorceress Succession class. | `bdo-sorc-succ` | `masonry` | 2 |
-| **Cross-Game: Mixed Fan Art** | Various characters from both games in shared scenes. | `mixed-fanart-vol1` | `grid` | 3 |
+The Mizuki theme automatically loads all private albums into a dedicated section. **You can view your exclusive galleries using the direct links below or by navigating to the main 'Albums' page.**
 
 ---
 
-:::important[ACTION REQUIRED]
-To enable these galleries, you **must** create the following folder structure and configuration files in your project:
+## 🔗 Direct Access Links to Exclusive Albums
 
-`public/images/albums/`
+| Album Name | Content Focus | Direct Link | Layout |
+|---|---|---|---|
+| **Black Desert: Dark Knight Renders** | Exclusive renders of Dark Knight outfits and poses. | [View Album Now](/albums/bdo-dk-vault/) | Masonry |
+| **Once Human: Doll Custom Showcase** | Unique, high-detail customization of Doll characters. | [View Album Now](/albums/oh-doll-custom/) | Grid |
+| **BDO: Sorceress (Succ) Collection** | High-resolution art focusing on the Sorceress Succession class. | [View Album Now](/albums/bdo-sorc-succ/) | Masonry |
+| **Cross-Game: Mixed Fan Art** | Various characters from both games in shared scenes. | [View Album Now](/albums/mixed-fanart-vol1/) | Grid |
+
+---
+
+:::tip[REMINDER: Configuration Required]
+These links will only work **after** you have created the following directories in your project and placed the required files (`cover.jpg`, `info.json`, and all image files):
+
+$$\text{public/images/albums/}\mathbf{\text{bdo-dk-vault/}}$$
+$$\text{public/images/albums/}\mathbf{\text{oh-doll-custom/}}$$
+$$\text{etc...}$$
 :::
+
+---
+
+De esta forma, el usuario podrá ver los enlaces directos una vez que introduzca la contraseña en el post encriptado.
+
+¿Hay algo más que te gustaría crear o ajustar en tus posts?
