@@ -131,7 +131,7 @@ export const siteConfig: SiteConfig = {
 
 		homeText: {
 			enable: true, // 在主页显示自定义文本
-			title: "Beautiful dogwood", // 主页横幅主标题
+			title: "Eve Black", // 主页横幅主标题
 
 			subtitle: [
 				"There's nothing special about me, but having you here is enough for me.",
