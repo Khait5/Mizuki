@@ -288,7 +288,7 @@ export const navBarConfig: NavBarConfig = {
 				{
 					name: "BDO Bosses Timer",
 					url: "/bdo-timer/",
-					icon: "material-symbols:psychology",
+					icon: "material-symbols:sentiment_extremely_dissatisfied",
 				},
 				{
 					name: "Timeline",
