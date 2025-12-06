@@ -28,9 +28,9 @@ export const projectsData: Project[] = [
 		category: "web",
 		techStack: ["Astro", "TypeScript", "Tailwind CSS", "Svelte"],
 		status: "completed",
-		liveDemo: "https://eveblack.pages.dev/",
-		sourceCode: "https://eveblack.pages.dev/", // 更改为GitHub链接
-		visitUrl: "https://eveblack.pages.dev/", // 添加前往项目链接
+		liveDemo: "https://evestorage.pages.dev/",
+		sourceCode: "https://evestorage.pages.dev/", // 更改为GitHub链接
+		visitUrl: "https://evestorage.pages.dev/", // 添加前往项目链接
 		startDate: "2025-10-01",
 		endDate: "2025-11-01",
 		featured: true,

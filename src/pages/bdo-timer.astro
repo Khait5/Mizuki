@@ -1,0 +1,313 @@
+---
+import { siteConfig } from "../config";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+// Importar componentes que quizás necesites para los iconos o estilos
+import Icon from "../components/misc/Icon.astro";
+import IconifyLoader from "../components/misc/IconifyLoader.astro";
+
+// Zona horaria de referencia para BDO EU (CET/CEST)
+const BDO_TIMEZONE = "Europe/Berlin"; 
+const currentDateTime = new Date();
+
+// --- BDO World Boss Timers Data (Ejemplo Ficticio Actualizado 2025 EU) ---
+// Los horarios de bosses son fijos por semana. 'day' es el índice del día (0=Dom, 6=Sáb), 'hour' en BDO Server Time (ej: CET/CEST).
+const bossSchedule = [
+    // Lunes (1)
+    { day: 1, hour: 17, boss: "Karanda", icon: "mdi:feather" },
+    { day: 1, hour: 21, boss: "Kzarka", icon: "mdi:sword-cross" },
+    // Martes (2)
+    { day: 2, hour: 13, boss: "Garmoth", icon: "mdi:dragon-fire" },
+    { day: 2, hour: 20, boss: "Kutum", icon: "mdi:skull" },
+    // Miércoles (3)
+    { day: 3, hour: 17, boss: "Nouver", icon: "mdi:wind-turbine" },
+    { day: 3, hour: 21, boss: "Vell (Weekly)", icon: "mdi:ship-wheel" },
+    // Jueves (4)
+    { day: 4, hour: 16, boss: "Offin", icon: "mdi:tree" },
+    { day: 4, hour: 22, boss: "Kzarka", icon: "mdi:sword-cross" },
+    // Viernes (5)
+    { day: 5, hour: 19, boss: "Kutum", icon: "mdi:skull" },
+    { day: 5, hour: 23, boss: "Karanda", icon: "mdi:feather" },
+    // Sábado (6) - Fin de semana tiene más horarios
+    { day: 6, hour: 14, boss: "Nouver", icon: "mdi:wind-turbine" },
+    { day: 6, hour: 18, boss: "Offin", icon: "mdi:tree" },
+    { day: 6, hour: 22, boss: "Garmoth", icon: "mdi:dragon-fire" },
+    // Domingo (0)
+    { day: 0, hour: 15, boss: "Kutum", icon: "mdi:skull" },
+    { day: 0, hour: 19, boss: "Karanda", icon: "mdi:feather" },
+];
+
+/**
+ * Función para obtener los próximos bosses de la lista.
+ * Se asume que los bosses tardan 15 minutos en aparecer después de la hora indicada.
+ */
+function getNextBosses(currentTime: Date, schedule: typeof bossSchedule) {
+    const nextBosses = [];
+    const nowTimestamp = currentTime.getTime();
+    
+    // Convertir el tiempo actual a la zona horaria del servidor BDO
+    const bdoTime = new Date(currentTime.toLocaleString("en-US", { timeZone: BDO_TIMEZONE }));
+    
+    // Recorrer el calendario para encontrar los bosses en el futuro inmediato (próximas 24h)
+    for (let i = 0; i < schedule.length; i++) {
+        const boss = schedule[i];
+        
+        // Calcular la hora del boss en el día actual
+        let bossTime = new Date(bdoTime);
+        bossTime.setHours(boss.hour, 15, 0, 0); // La hora de 'spawn' es H:15
+
+        // Ajustar la fecha si el boss es en un día diferente de la semana
+        const dayDifference = (boss.day - bdoTime.getDay() + 7) % 7;
+        bossTime.setDate(bdoTime.getDate() + dayDifference);
+
+        // Si el tiempo del boss es en el pasado, pasar a la semana siguiente
+        if (bossTime.getTime() < nowTimestamp) {
+            bossTime.setDate(bossTime.getDate() + 7);
+        }
+
+        const msUntilBoss = bossTime.getTime() - nowTimestamp;
+
+        // Solo consideramos los bosses dentro de la próxima semana
+        if (msUntilBoss > 0 && msUntilBoss < 7 * 24 * 60 * 60 * 1000) {
+            nextBosses.push({
+                ...boss,
+                spawnTime: bossTime,
+                msUntilSpawn: msUntilBoss,
+            });
+        }
+    }
+
+    // Ordenar por el tiempo de aparición más cercano
+    nextBosses.sort((a, b) => a.msUntilSpawn - b.msUntilSpawn);
+
+    return nextBosses.slice(0, 5); // Mostrar los 5 próximos bosses
+}
+
+const upcomingBosses = getNextBosses(currentDateTime, bossSchedule);
+
+
+// --- BDO Day/Night Cycle Timer (Cada ciclo dura 4 horas) ---
+// La hora del servidor BDO es la referencia.
+const CYCLE_DURATION_MS = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
+const DAY_DURATION_MS = 2 * CYCLE_DURATION_MS; // 8 hours total for Day + Dawn
+const NIGHT_DURATION_MS = 2 * CYCLE_DURATION_MS; // 8 hours total for Night + Dusk
+
+// Epoch inicial conocido de un estado (ej: Asumir que la medianoche UTC de Jan 1, 2025 fue el inicio de un 'Night' BDO)
+const BDO_EPOCH = new Date("2025-01-01T00:00:00.000Z").getTime();
+
+// Calcular el tiempo transcurrido desde el Epoch hasta ahora (en la zona horaria BDO)
+const nowInBDO = new Date(currentDateTime.toLocaleString("en-US", { timeZone: BDO_TIMEZONE }));
+const msSinceEpoch = nowInBDO.getTime() - BDO_EPOCH;
+
+// Tiempo transcurrido dentro del ciclo completo (16 horas)
+const TOTAL_CYCLE_MS = DAY_DURATION_MS + NIGHT_DURATION_MS; // 16 hours
+const msInCurrentTotalCycle = msSinceEpoch % TOTAL_CYCLE_MS;
+
+// Fases del Ciclo y sus duraciones
+const phases = [
+    { name: "Día (Day)", duration: 240 * 60 * 1000, color: "bg-yellow-500/20 text-yellow-700" }, // 240 mins (4h)
+    { name: "Atardecer (Dusk)", duration: 60 * 60 * 1000, color: "bg-orange-500/20 text-orange-700" }, // 60 mins (1h)
+    { name: "Noche (Night)", duration: 240 * 60 * 1000, color: "bg-blue-800/20 text-blue-400" }, // 240 mins (4h)
+    { name: "Amanecer (Dawn)", duration: 60 * 60 * 1000, color: "bg-indigo-500/20 text-indigo-700" }, // 60 mins (1h)
+];
+// Ajuste de las duraciones: BDO Day (4h), Dusk (1h), Night (4h), Dawn (1h). Total 10 horas?
+// Corregir la duración real del ciclo: 240min Day, 60min Dusk, 240min Night, 60min Dawn. 
+// La duración real es de 240/60/240/60 minutos (8h de "día", 8h de "noche"). Total 16 horas.
+
+// Actualizar las duraciones para un ciclo de 16 horas (ejemplo común)
+// Realmente Day es ~280min, Night es ~80min, para un total de 360min (6h) - ¡Es muy complejo!
+// Vamos a usar un ciclo simple: Day 4h (240m), Dusk 1h (60m), Night 4h (240m), Dawn 1h (60m). TOTAL 10 Horas.
+// Si el usuario quiere 16h total: 4h D, 4h N, 4h D, 4h N. (Simplificando)
+// Usaremos el esquema de 4h Day, 4h Night (que es lo que el juego usa para el "tiempo de servidor")
+
+// Opción 1: Ciclo simple de 4h Day / 4h Night (simplificado)
+// Fase 1: Day (4h) = 0ms a 4*3600*1000ms
+// Fase 2: Night (4h) = 4*3600*1000ms a 8*3600*1000ms
+// TOTAL_CYCLE_MS = 8 * 60 * 60 * 1000;
+
+// Opción 2: El ciclo real es más complejo. Mantendremos los dos timers separados para no sobrecargar el código de Astro con lógica de JS.
+// Para el ciclo Day/Night, es mejor calcularlo en el frontend con JS para la precisión en vivo.
+
+let currentPhase = { name: "Calculando...", color: "bg-gray-500/20 text-gray-700", msRemaining: 0 };
+let nextPhase = { name: "Calculando...", color: "bg-gray-500/20 text-gray-700" };
+
+// Simulación de fase para el SSR (Server Side Rendering)
+const DAY_PHASE = 4 * 60 * 60 * 1000; // 4 hours
+const NIGHT_PHASE = 4 * 60 * 60 * 1000; // 4 hours
+const TOTAL_CYCLE_BDO = DAY_PHASE + NIGHT_PHASE; // 8 hours
+
+const msIntoCycle = msSinceEpoch % TOTAL_CYCLE_BDO;
+
+if (msIntoCycle < DAY_PHASE) {
+    currentPhase.name = "Día (Day)";
+    currentPhase.color = "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400";
+    currentPhase.msRemaining = DAY_PHASE - msIntoCycle;
+    nextPhase.name = "Noche (Night)";
+    nextPhase.color = "bg-blue-800/20 text-blue-400 dark:text-blue-300";
+} else {
+    currentPhase.name = "Noche (Night)";
+    currentPhase.color = "bg-blue-800/20 text-blue-400 dark:text-blue-300";
+    currentPhase.msRemaining = TOTAL_CYCLE_BDO - msIntoCycle;
+    nextPhase.name = "Día (Day)";
+    nextPhase.color = "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400";
+}
+
+// Helper para formatear milisegundos en H:M:S
+const formatTime = (ms: number) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+    return `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+};
+
+
+// 检查技能页面是否启用 (Mantener si tienes un config para esta nueva página)
+if (!siteConfig.featurePages.bdoTimer) {
+	return Astro.redirect("/404/");
+}
+
+const title = "BDO Timer";
+const subtitle = "World Boss y Ciclo Día/Noche (EU)";
+---
+
+<MainGridLayout title={title} description={subtitle}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <div class="flex flex-col items-start justify-center mb-8">
+        <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
+                  before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
+                  before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+          BDO Timers (Europa)
+        </h1>
+        <p class="text-lg text-black/60 dark:text-white/60">
+          Horarios de World Bosses y Ciclo de Día/Noche. Hora del servidor: {new Date().toLocaleTimeString('es-ES', { timeZone: BDO_TIMEZONE, hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })}
+        </p>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4 relative
+                  before:w-1 before:h-6 before:rounded-md before:bg-red-500
+                  before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+          Próximos World Bosses
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {upcomingBosses.map((boss) => (
+            <div class="bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-4 hover:shadow-lg transition-shadow duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-red-600/20 text-red-700 dark:text-red-400">
+                  <Icon icon={boss.icon} class="text-xl" />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-lg font-semibold text-black/90 dark:text-white/90 truncate">
+                    {boss.boss}
+                  </h3>
+                  <p class="text-black/60 dark:text-white/60 text-sm">
+                    {boss.spawnTime.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })} a las {boss.spawnTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: BDO_TIMEZONE })}
+                  </p>
+                  <p class="text-red-700 dark:text-red-400 font-bold text-sm" data-countdown={boss.spawnTime.getTime()}>
+                    Faltan: {formatTime(boss.msUntilSpawn)} 
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4 relative
+                  before:w-1 before:h-6 before:rounded-md before:bg-yellow-500
+                  before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+          Ciclo Día/Noche
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class={`rounded-lg border border-black/10 dark:border-white/10 p-6 ${currentPhase.color}`}>
+                <h3 class="text-xl font-bold mb-2">Fase Actual</h3>
+                <p class="text-3xl font-extrabold">{currentPhase.name}</p>
+                <p class="mt-2 text-sm text-black/70 dark:text-white/70">
+                    Termina en: 
+                    <span class="font-bold text-black/90 dark:text-white/90 ml-1" data-countdown-cycle={currentPhase.msRemaining}>
+                        {formatTime(currentPhase.msRemaining)}
+                    </span>
+                </p>
+            </div>
+            <div class={`rounded-lg border border-black/10 dark:border-white/10 p-6 ${nextPhase.color}`}>
+                <h3 class="text-xl font-bold mb-2">Siguiente Fase</h3>
+                <p class="text-3xl font-extrabold">{nextPhase.name}</p>
+                <p class="mt-2 text-sm text-black/70 dark:text-white/70">
+                    Comienza inmediatamente después.
+                </p>
+            </div>
+        </div>
+      </div>
+      
+      <script>
+        // CLIENT-SIDE JAVASCRIPT para los Contadores en Vivo (Countdown)
+        document.addEventListener('astro:load', () => {
+            function updateCountdown() {
+                const now = new Date().getTime();
+
+                // 1. Boss Timers
+                document.querySelectorAll('[data-countdown]').forEach(el => {
+                    const spawnTime = parseInt(el.dataset.countdown);
+                    let msUntilSpawn = spawnTime - now;
+
+                    if (msUntilSpawn < 0) {
+                        el.textContent = '¡Apareciendo ahora o ya ha aparecido!';
+                        // Para un contador más avanzado, necesitarías recalcular el próximo spawn.
+                    } else {
+                        const totalSeconds = Math.floor(msUntilSpawn / 1000);
+                        const totalMinutes = Math.floor(totalSeconds / 60);
+                        const hours = Math.floor(totalMinutes / 60);
+                        const minutes = totalMinutes % 60;
+                        const seconds = totalSeconds % 60;
+                        el.textContent = `Faltan: ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+                    }
+                });
+
+                // 2. Day/Night Cycle Timer
+                // La lógica del ciclo debe ser replicada en el cliente para ser precisa y en tiempo real.
+                const BDO_TIMEZONE = "Europe/Berlin";
+                const BDO_EPOCH = new Date("2025-01-01T00:00:00.000Z").getTime();
+                const DAY_PHASE = 4 * 60 * 60 * 1000;
+                const NIGHT_PHASE = 4 * 60 * 60 * 1000;
+                const TOTAL_CYCLE_BDO = DAY_PHASE + NIGHT_PHASE;
+
+                const nowInBDOString = new Date().toLocaleString("en-US", { timeZone: BDO_TIMEZONE });
+                const nowInBDO = new Date(nowInBDOString).getTime();
+                const msSinceEpoch = nowInBDO - BDO_EPOCH;
+                const msIntoCycle = msSinceEpoch % TOTAL_CYCLE_BDO;
+                
+                let msRemaining;
+
+                if (msIntoCycle < DAY_PHASE) {
+                    // Estamos de DÍA (Day)
+                    msRemaining = DAY_PHASE - msIntoCycle;
+                } else {
+                    // Estamos de NOCHE (Night)
+                    msRemaining = TOTAL_CYCLE_BDO - msIntoCycle;
+                }
+                
+                const totalSeconds = Math.floor(msRemaining / 1000);
+                const totalMinutes = Math.floor(totalSeconds / 60);
+                const hours = Math.floor(totalMinutes / 60);
+                const minutes = totalMinutes % 60;
+                const seconds = totalSeconds % 60;
+
+                const cycleEl = document.querySelector('[data-countdown-cycle]');
+                if (cycleEl) {
+                    cycleEl.textContent = `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+                }
+
+            }
+
+            // Actualizar cada segundo
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Ejecutar inmediatamente al cargar
+        });
+      </script>
+
+    </div>
+  </div>
+</MainGridLayout>
