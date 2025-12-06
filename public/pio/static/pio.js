@@ -184,10 +184,10 @@ var Paul_Pio = function (prop) {
                 elements.skin.onclick = () => {
                     loadlive2d("pio", prop.model[modules.idol()]);
 
-                    prop.content.skin && modules.message(prop.content.skin[1] || "新衣服真漂亮~");
+                    prop.content.skin && modules.message(prop.content.skin[1] || "The new clothes are so pretty!");
                 };
                 elements.skin.onmouseover = () => {
-                    prop.content.skin && modules.message(prop.content.skin[0] || "想看看我的新衣服吗？");
+                    prop.content.skin && modules.message(prop.content.skin[0] || "Want to see my new clothes?");
                 };
                 current.menu.appendChild(elements.skin);
             }
@@ -197,7 +197,7 @@ var Paul_Pio = function (prop) {
                 window.open(prop.content.link || "https://paugram.com/coding/add-poster-girl-with-plugin.html");
             };
             elements.info.onmouseover = () => {
-                modules.message("想了解更多关于我的信息吗？");
+                modules.message("Want to know more about Eve's Storage?");
             };
             current.menu.appendChild(elements.info);
 
@@ -207,7 +207,7 @@ var Paul_Pio = function (prop) {
                     typeof prop.night === "function" ? prop.night() : eval(prop.night);
                 };
                 elements.night.onmouseover = () => {
-                    modules.message("夜间点击这里可以保护眼睛呢");
+                    modules.message("Click here at night to protect your eyes!");
                 };
                 current.menu.appendChild(elements.night);
             }
@@ -217,7 +217,7 @@ var Paul_Pio = function (prop) {
                 modules.destroy();
             };
             elements.close.onmouseover = () => {
-                modules.message(prop.content.close || "QWQ 下次再见吧~");
+                modules.message(prop.content.close || "QWQ See you next time~");
             };
             current.menu.appendChild(elements.close);
         },
@@ -232,13 +232,13 @@ var Paul_Pio = function (prop) {
                     if (item.type === "read") {
                         el[i].onmouseover = (ev) => {
                             const text = ev.currentTarget.title || ev.currentTarget.innerText;
-                            modules.message("想阅读 %t 吗？".replace(/%t/, "“" + text + "”"));
+                            modules.message("Want to read %t?".replace(/%t/, "“" + text + "”"));
                         }
                     }
                     else if (item.type === "link") {
                         el[i].onmouseover = (ev) => {
                             const text = ev.currentTarget.title || ev.currentTarget.innerText;
-                            modules.message("想了解一下 %t 吗？".replace(/%t/, "“" + text + "”"));
+                            modules.message("Want to learn more about %t?".replace(/%t/, "“" + text + "”"));
                         }
                     }
                     else if (item.text) {

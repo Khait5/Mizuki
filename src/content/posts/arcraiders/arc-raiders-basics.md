@@ -21,13 +21,6 @@ Arc Raiders is a third-person extraction shooter. The goal is to drop into the z
 3.  **Objective:** Complete main and side objectives for high-tier loot.
 4.  **Extract:** Head to an extraction point to secure your findings.
 
-## 🪖 Classes (Raiders)
-
-You choose a Raider before each drop, each with unique active and passive abilities:
-
-* **The Trooper:** Versatile, focuses on balanced combat and utility.
-* **The Scout:** Specialized in long-range combat and marking targets.
-* **The Engineer:** Defensive, focused on deploying turrets and fortifications.
 
 ---
 :::tip
